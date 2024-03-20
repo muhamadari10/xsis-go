@@ -1,0 +1,57 @@
+syntax = "proto3";
+
+package model;
+
+option go_package = "./app/model/rpc/movie";
+
+service AuthService {
+  rpc AddMovie(AddMovieReq) returns (AddMovieRes);
+  rpc DetailMovie(DetailMovieReq) returns (AddMovieRes);
+  rpc ListMovie(AbstractReq) returns (ListMovieRes);
+  rpc RemoveMovie(AbstractReq) returns (RemoveMovieRes);
+}
+
+message AbstractReq {
+}
+
+message AddMovieReq {
+  string title = 1;
+  string description = 2;
+  double rating = 3;
+  string image = 4;
+  int64 id = 5;
+}
+
+message AddMovieRes {
+  int64 code = 1;
+  string ref_id = 2;
+  string message = 3;
+  MovieData data = 4;
+  repeated string ErrorData = 5;
+}
+
+message ListMovieRes {
+  int64 code = 1;
+  string ref_id = 2;
+  string message = 3;
+  repeated MovieData data = 4;
+}
+
+message RemoveMovieRes {
+  int64 code = 1;
+  string message = 2;
+}
+
+message MovieData {
+  int64 id = 1;
+  string title = 2;
+  string description = 3;
+  double rating = 4;
+  string image = 5;
+  string createdAt = 6;
+  string updatedAt = 7;
+}
+
+message DetailMovieReq {
+  int64 id = 1;
+}
